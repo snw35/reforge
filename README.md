@@ -1,5 +1,8 @@
 # ReForge
 
+* ![Build Status](https://github.com/snw35/reforge/actions/workflows/update.yml/badge.svg)
+* [Dockerhub: snw35/reforge](https://hub.docker.com/r/snw35/reforge)
+
 ReForge Stable Diffusion WebUI containers, updated weekly.
 
 Currently builds:
