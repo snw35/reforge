@@ -1,0 +1,24 @@
+[__config__]
+oldver = "old_ver.json"
+newver = "new_ver.json"
+
+[BASE]
+source = "container"
+container = "nvidia/cuda"
+include_regex = "12.8.\\d+-cudnn-devel-ubuntu\\d+.\\d+"
+
+[UV]
+source = "github"
+github = "astral-sh/uv"
+use_max_tag = true
+
+[SAGE]
+source = "github"
+github = "snw35/sageattention-wheel"
+use_max_tag = true
+
+[REFORGE]
+source = "github"
+github = "Haoming02/sd-webui-forge-classic"
+branch = "neo"
+use_max_tag = true

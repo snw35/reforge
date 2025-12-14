@@ -1,0 +1,33 @@
+services:
+
+  reforge:
+    container_name: reforge
+    image: reforge:neo-cu128
+    #entrypoint: /bin/bash
+    #stdin_open: true # docker run -i
+    #tty: true        # docker run -t
+    volumes:
+      - reforge-neo-config:/home/ubuntu/config
+      - reforge-neo-extensions:/home/ubuntu/stable-diffusion-webui/extensions
+      - type: bind
+        source: ./models
+        target: /home/ubuntu/stable-diffusion-webui/models
+      - type: bind
+        source: ./output
+        target: /home/ubuntu/stable-diffusion-webui/output
+    ports:
+      - 7860:7860
+    restart: always
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+volumes:
+  reforge-neo-config:
+    name: reforge-neo-config
+  reforge-neo-extensions:
+    name: reforge-neo-extensions
