@@ -75,8 +75,8 @@ For long-term use the bundled `docker-compose.yaml` file is required because it 
 
 The purpose of each named volume is explained below:
 
- * `reforge-neo-config` - Webui settings files.
- * `reforge-neo-extensions` - Any custom extensions installed by the user.
+ * `reforge-config` - Webui settings files.
+ * `reforge-extensions` - Any custom extensions installed by the user.
 
 Clone the repo and start the compose project:
 

@@ -2,13 +2,13 @@ services:
 
   reforge:
     container_name: reforge
-    image: reforge:neo-cu128
+    image: reforge:neo
     #entrypoint: /bin/bash
     #stdin_open: true # docker run -i
     #tty: true        # docker run -t
     volumes:
-      - reforge-neo-config:/home/ubuntu/config
-      - reforge-neo-extensions:/home/ubuntu/stable-diffusion-webui/extensions
+      - reforge-config:/home/ubuntu/config
+      - reforge-extensions:/home/ubuntu/stable-diffusion-webui/extensions
       - type: bind
         source: ./models
         target: /home/ubuntu/stable-diffusion-webui/models
@@ -27,7 +27,7 @@ services:
               capabilities: [gpu]
 
 volumes:
-  reforge-neo-config:
-    name: reforge-neo-config
-  reforge-neo-extensions:
-    name: reforge-neo-extensions
+  reforge-config:
+    name: reforge-config
+  reforge-extensions:
+    name: reforge-extensions
