@@ -2,10 +2,7 @@ services:
 
   reforge:
     container_name: reforge
-    image: reforge:neo
-    #entrypoint: /bin/bash
-    #stdin_open: true # docker run -i
-    #tty: true        # docker run -t
+    image: snw35/reforge:neo
     volumes:
       - reforge-config:/home/ubuntu/config
       - reforge-extensions:/home/ubuntu/stable-diffusion-webui/extensions
