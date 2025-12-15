@@ -2,6 +2,11 @@
 oldver = "old_ver.json"
 newver = "new_ver.json"
 
+[BASE_BUILDER]
+source = "container"
+container = "nvidia/cuda"
+include_regex = "12.8.\\d+-base-ubuntu\\d+.\\d+"
+
 [BASE]
 source = "container"
 container = "nvidia/cuda"
