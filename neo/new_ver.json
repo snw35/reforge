@@ -1,4 +1,5 @@
 {
+  "BASE_BUILDER": "12.8.1-base-ubuntu24.04",
   "BASE": "12.8.1-base-ubuntu24.04",
   "REFORGE": "2.6",
   "SAGE": "2.2.0",
