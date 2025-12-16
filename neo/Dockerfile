@@ -16,6 +16,7 @@ USER ubuntu
 WORKDIR /home/ubuntu
 ENV REFORGE_PATH=/home/ubuntu/stable-diffusion-webui
 ENV UV_CACHE_DIR=${REFORGE_PATH}/venv/uvcache
+ENV DEBIAN_FRONTEND="noninteractive"
 
 # Version of python to install with uv
 ENV UV_PYTHON=3.11
@@ -36,16 +37,16 @@ RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
 
 # Version variables controlled by https://github.com/snw35/dfupdate
 ENV REFORGE_VERSION=2.6
-ENV REFORGE_URL=https://github.com/Haoming02/sd-webui-forge-classic/archive/refs/tags/${REFORGE_VERSION}.tar.gz
-ENV REFORGE_FILENAME=sd-webui-forge-classic-${REFORGE_VERSION}.tar.gz
+ENV REFORGE_URL=https://github.com/Haoming02/sd-webui-forge-classic/archive/refs/tags/
+ENV REFORGE_FILENAME=${REFORGE_VERSION}.tar.gz
 ENV REFORGE_SHA256=de8193ea779ca95f2ae8e6e6c3e29fd46837bc10bcb3a3a594dd68017bc9b6f8
 
 # Install ReForge
-RUN curl -L -O $REFORGE_URL \
-  && echo "$REFORGE_SHA256  ./${REFORGE_VERSION}.tar.gz" | sha256sum -c - \
-  && tar -xzf ./${REFORGE_VERSION}.tar.gz \
+RUN curl -L -O $REFORGE_URL/$REFORGE_FILENAME \
+  && echo "$REFORGE_SHA256  ./${REFORGE_FILENAME}" | sha256sum -c - \
+  && tar -xzf ./${REFORGE_FILENAME} \
   && mv sd-webui-forge-classic-${REFORGE_VERSION} stable-diffusion-webui \
-  && rm -f ./${REFORGE_VERSION}.tar.gz \
+  && rm -f ./${REFORGE_FILENAME} \
   && mkdir /home/ubuntu/config \
   && mkdir ${REFORGE_PATH}/output
 
@@ -94,6 +95,7 @@ FROM nvidia/cuda:12.8.1-base-ubuntu24.04
 
 # Second stage copies homedir with webui install and pre-built venv
 COPY --from=builder /home/ubuntu /home/ubuntu
+ENV DEBIAN_FRONTEND="noninteractive"
 
 # Runtime dependencies for WebUI
 # Note that Pytorch JIT (just in time) compiliation requires gcc
