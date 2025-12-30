@@ -22,10 +22,10 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV UV_PYTHON=3.11
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV UV_VERSION=0.9.18
+ENV UV_VERSION=0.9.20
 ENV UV_URL=https://github.com/astral-sh/uv/releases/download/${UV_VERSION}
 ENV UV_FILENAME=uv-x86_64-unknown-linux-gnu.tar.gz
-ENV UV_SHA256=c2def3db178ade63933fa15ffc96e882c196ce53e06173dcee05b36c5f6f68f5
+ENV UV_SHA256=01ac5d872ab4cf6b11965c9df317f699882405f0319872fe3dbbb3adb045600b
 
 # Install UV
 RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
