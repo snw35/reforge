@@ -36,10 +36,10 @@ RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
   && rm -rf ./uv-x86_64-unknown-linux-gnu ./${UV_FILENAME}
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV REFORGE_VERSION=2.8
+ENV REFORGE_VERSION=2.9
 ENV REFORGE_URL=https://github.com/Haoming02/sd-webui-forge-classic/archive/refs/tags/
 ENV REFORGE_FILENAME=${REFORGE_VERSION}.tar.gz
-ENV REFORGE_SHA256=7c05d525a50510dca214b72de5528f97196a6cbf69b73cf267bb38461d48b0aa
+ENV REFORGE_SHA256=650c440eda55b3c5fad2f05d9774eac6cd6ab48631e96549720d99f8eff8c0c8
 
 # Install ReForge
 RUN curl -L -O $REFORGE_URL/$REFORGE_FILENAME \

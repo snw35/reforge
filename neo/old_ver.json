@@ -8,10 +8,10 @@
       "version": "12.8.1-base-ubuntu24.04"
     },
     "REFORGE": {
-      "version": "2.8",
-      "gitref": "refs/tags/2.8",
-      "revision": "3acf949fa787692b98ec4aa3563f25798d74f0a1",
-      "url": "https://github.com/Haoming02/sd-webui-forge-classic/releases/tag/2.8"
+      "version": "2.9",
+      "gitref": "refs/tags/2.9",
+      "revision": "672faf848f9aa6665a681f1418e2dbea93edf392",
+      "url": "https://github.com/Haoming02/sd-webui-forge-classic/releases/tag/2.9"
     },
     "SAGE": {
       "version": "2.2.0",
