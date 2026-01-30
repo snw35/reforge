@@ -3,6 +3,7 @@ services:
   reforge:
     container_name: reforge
     image: snw35/reforge:neo
+    tty: true
     volumes:
       - reforge-config:/home/ubuntu/config
       - reforge-extensions:/home/ubuntu/stable-diffusion-webui/extensions
