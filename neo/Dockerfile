@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.8.1-base-ubuntu24.04 AS builder
+FROM nvidia/cuda:13.1.1-base-ubuntu24.04 AS builder
 
 # First build stage constructs /home/ubuntu
 # Installs uv, webui, and builds full venv
@@ -91,7 +91,7 @@ RUN curl -L -O ${SAGE_URL}/${SAGE_FILENAME} \
 ###############################################################################
 
 
-FROM nvidia/cuda:12.8.1-base-ubuntu24.04
+FROM nvidia/cuda:13.1.1-base-ubuntu24.04
 
 # Second stage copies homedir with webui install and pre-built venv
 COPY --from=builder /home/ubuntu /home/ubuntu
