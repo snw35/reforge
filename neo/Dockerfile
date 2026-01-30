@@ -68,9 +68,9 @@ ENV PATH="$PATH:${REFORGE_PATH}:/home/ubuntu/.local/bin"
 
 # Version variables controlled by https://github.com/snw35/dfupdate
 ENV SAGE_VERSION=2.2.0
-ENV SAGE_URL=https://github.com/snw35/sageattention-wheel/releases/download/cu130-${SAGE_VERSION}/
-ENV SAGE_FILENAME=sageattention-${SAGE_VERSION}-cp311-cp311-linux_x86_64.whl
-ENV SAGE_SHA256=3ded16cde99ddc9c4f7e623e32aeb5f5ae815c0745f42828dce3579686319023
+ENV SAGE_URL=https://github.com/snw35/sageattention-wheel/releases/download/cu12-${SAGE_VERSION}-cu13-${SAGE_VERSION}/
+ENV SAGE_FILENAME=sageattention-${SAGE_VERSION}+cu13-cp311-cp311-linux_x86_64.whl
+ENV SAGE_SHA256=32c92fe1032238f855f3b1498544b2a9fc25bd55dd4e6c310c2ba39410c5961a
 
 # Construct full venv
 RUN curl -L -O ${SAGE_URL}/${SAGE_FILENAME} \

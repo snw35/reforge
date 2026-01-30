@@ -14,7 +14,7 @@ Currently builds:
 [ReForge Neo Stable Diffusion WebUI](https://github.com/Haoming02/sd-webui-forge-classic) container with:
 
   * [`neo` branch from Haoming02.](https://github.com/Haoming02/sd-webui-forge-classic/tree/neo)
-  * CUDA 12.8.
+  * CUDA 13.
   * Sageattention 2.
   * Python 3.11 and UV.
   * Latest Torch and Torchvision.
@@ -32,15 +32,15 @@ The following tags are available:
 
 This container allows you to create AI images and videos with the latest models (Lumina, Quant, Wan, etc) on the most cutting-edge version of ReForge webui, with all the latest dependencies. You will need a host capable of running it (requirements outlined below). A modern gaming PC with an Nvidia GPU and Docker/Podman Desktop would be suitable without building something more serious (home server, etc).
 
-This container is a **large image (around 8GB)** due to the WebUI's large number of dependencies. These are pre-packaged in the image, so nothing needs to be downloaded or compiled at runtime.
+This container is a **large image (around 5GB)** due to the WebUI's large number of dependencies. These are pre-packaged in the image, so nothing needs to be downloaded or compiled at runtime.
 
 ### Host Requirements
 
-**Important - your host MUST have the CUDA runtime at 12 or above installed.** The CUDA version on the host must be equal to, or greater than, the version inside the container (12 in this case).
+**Important - your host MUST have the CUDA runtime at 13 or above installed.** The CUDA version on the host must be equal to, or greater than, the version inside the container (13 in this case).
 
 #### Hardware
 
-* [An Nvidia GPU with 8GB+ VRAM and CUDA 12 support, RTX 20+ recommended.](https://developer.nvidia.com/cuda-gpus)
+* [An Nvidia GPU with 8GB+ VRAM and CUDA 13 support, RTX 20+ recommended.](https://developer.nvidia.com/cuda-gpus)
 * At least 16GB of RAM for SD/XL and distilled models, 64GB for full versions of models (e.g Flux).
 * At least 200GB of disk space for dependencies and models (500GB or more recommended).
 * Using a VM is fine, as long as your GPU is passed-through and detected inside it.
@@ -49,17 +49,17 @@ This container is a **large image (around 8GB)** due to the WebUI's large number
 
 You need a container runtime that can support passing your GPU through to the container:
 
- * Windows: [Install CUDA 12 or 13](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/), then either [Docker Desktop with GPU pass-through](https://docs.docker.com/desktop/features/gpu/) or [Podman Desktop with GPU pass-through.](https://podman-desktop.io/docs/podman/gpu)
- * MacOS: [Install CUDA 12 or 13](https://developer.nvidia.com/nvidia-cuda-toolkit-developer-tools-mac-hosts), then [Podman Desktop with GPU pass-through.](https://podman-desktop.io/docs/podman/gpu)
- * Linux: [Install CUDA 12 or 13](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html), then [Podman Desktop with GPU pass-through.](https://podman-desktop.io/docs/podman/gpu)
+ * Windows: [Install CUDA 13](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/), then either [Docker Desktop with GPU pass-through](https://docs.docker.com/desktop/features/gpu/) or [Podman Desktop with GPU pass-through.](https://podman-desktop.io/docs/podman/gpu)
+ * MacOS: [Install CUDA 13](https://developer.nvidia.com/nvidia-cuda-toolkit-developer-tools-mac-hosts), then [Podman Desktop with GPU pass-through.](https://podman-desktop.io/docs/podman/gpu)
+ * Linux: [Install CUDA 13](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html), then [Podman Desktop with GPU pass-through.](https://podman-desktop.io/docs/podman/gpu)
  * Virtual Machine: A Linux VM with GPU pass-through works well (see below).
 
 #### Installing on a VM or native Linux:
 
 If you go the Virtual Machine route, or want to set up natively on Linux, you will need to install:
 
- * [CUDA 12 or 13 Runtime.](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/)
- * [A supported Linux distro for CUDA 12 or 13 (Ubuntu server 24.04 LTS recommended).](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/#system-requirements)
+ * [CUDA 13 Runtime.](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/)
+ * [A supported Linux distro for CUDA 13 (Ubuntu server 24.04 LTS recommended).](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/#system-requirements)
  * [Compatible Nvidia drivers (both 'open' and 'proprietary' flavours work).](https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/index.html)
  * [Docker-CE.](https://docs.docker.com/engine/install/)
  * [Nvidia container toolkit.](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
@@ -113,4 +113,4 @@ Place your model files in the `models` folder [in this linked layout.](https://g
 
 ### Other CUDA Versions / Older Hardware
 
-This repo will not provide containers or support for older CUDA versions (e.g 11.x, needed by some old Nvidia hardware) at the current time, as this project is focused on achieving the fastest performance on the the latest versions of ReForge and dependencies. The area of A.I image generation is fast moving and installation methods can vary widely between e.g CUDA 11.x and CUDA 12 for the same packages.
+This repo will not provide containers or support for older CUDA versions (e.g 11.x, needed by some old Nvidia hardware) at the current time, as this project is focused on achieving the fastest performance on the the latest versions of ReForge and dependencies. The area of A.I image generation is fast moving and installation methods can vary widely between e.g CUDA 12.x and CUDA 13 for the same packages.
