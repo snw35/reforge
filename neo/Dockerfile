@@ -22,10 +22,10 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV UV_PYTHON=3.11
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV UV_VERSION=0.9.28
+ENV UV_VERSION=0.9.30
 ENV UV_URL=https://github.com/astral-sh/uv/releases/download/${UV_VERSION}
 ENV UV_FILENAME=uv-x86_64-unknown-linux-gnu.tar.gz
-ENV UV_SHA256=66ad1822dd9cf96694b95c24f25bc05cff417a65351464da01682a91796d1f2b
+ENV UV_SHA256=8b3762374972daa7a74bbc6896cc73229ca69a07403dd9f9ea3805a51ffd7582
 
 # Install UV
 RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
@@ -36,10 +36,10 @@ RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
   && rm -rf ./uv-x86_64-unknown-linux-gnu ./${UV_FILENAME}
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV REFORGE_VERSION=2.10
+ENV REFORGE_VERSION=2.11
 ENV REFORGE_URL=https://github.com/Haoming02/sd-webui-forge-classic/archive/refs/tags/
 ENV REFORGE_FILENAME=${REFORGE_VERSION}.tar.gz
-ENV REFORGE_SHA256=fe469e52b5598c0f5dc544a20b0f20b6dec234027f61342c8137b11fa1adcbd7
+ENV REFORGE_SHA256=29bb8acb84c67bacb392723265734c76733b3720c3cd7558c5790530872da8b9
 
 # Install ReForge
 RUN curl -L -O $REFORGE_URL/$REFORGE_FILENAME \
