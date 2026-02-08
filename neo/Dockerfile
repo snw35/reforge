@@ -22,10 +22,10 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV UV_PYTHON=3.11
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV UV_VERSION=0.9.30
+ENV UV_VERSION=0.10.0
 ENV UV_URL=https://github.com/astral-sh/uv/releases/download/${UV_VERSION}
 ENV UV_FILENAME=uv-x86_64-unknown-linux-gnu.tar.gz
-ENV UV_SHA256=8b3762374972daa7a74bbc6896cc73229ca69a07403dd9f9ea3805a51ffd7582
+ENV UV_SHA256=230e328948c92dd1ebad83949c4d56e83813dfe9c6362a4c519e6a227973f1ae
 
 # Install UV
 RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
@@ -71,15 +71,16 @@ ENV SAGE_VERSION=2.2.0
 ENV SAGE_URL=https://github.com/snw35/sageattention-wheel/releases/download/cu12-${SAGE_VERSION}-cu13-${SAGE_VERSION}/
 ENV SAGE_FILENAME=sageattention-${SAGE_VERSION}+cu13-cp311-cp311-linux_x86_64.whl
 ENV SAGE_SHA256=32c92fe1032238f855f3b1498544b2a9fc25bd55dd4e6c310c2ba39410c5961a
-
-# Construct full venv
+#
+# # Construct full venv
 RUN curl -L -O ${SAGE_URL}/${SAGE_FILENAME} \
   && echo "$SAGE_SHA256  ./${SAGE_FILENAME}" | sha256sum -c - \
   && uv python install ${UV_PYTHON} --default \
-  && uv venv ${REFORGE_PATH}/venv --seed --allow-existing \
+  && uv venv ${REFORGE_PATH}/venv --clear --seed --allow-existing \
   && . ${REFORGE_PATH}/venv/bin/activate \
   && uv pip install insightface \
   && uv pip install ninja \
+  && uv pip install openai-clip \
   && uv pip install ./${SAGE_FILENAME} \
   && rm -f ./${SAGE_FILENAME} \
   && . ${REFORGE_PATH}/webui-user.sh \
