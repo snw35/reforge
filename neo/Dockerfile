@@ -18,9 +18,6 @@ ENV REFORGE_PATH=/home/ubuntu/stable-diffusion-webui
 ENV UV_CACHE_DIR=${REFORGE_PATH}/venv/uvcache
 ENV DEBIAN_FRONTEND="noninteractive"
 
-# Version of python to install with uv
-ENV UV_PYTHON=3.11
-
 # Version variables controlled by https://github.com/snw35/dfupdate
 ENV UV_VERSION=0.10.0
 ENV UV_URL=https://github.com/astral-sh/uv/releases/download/${UV_VERSION}
@@ -51,6 +48,7 @@ RUN curl -L -O $REFORGE_URL/$REFORGE_FILENAME \
   && mkdir ${REFORGE_PATH}/output
 
 COPY prepare_environment.py ${REFORGE_PATH}/prepare_environment.py
+COPY get_python_version.py ${REFORGE_PATH}/get_python_version.py
 COPY entrypoint.sh ${REFORGE_PATH}/entrypoint.sh
 COPY webui-user.sh ${REFORGE_PATH}/webui-user.sh
 COPY webui.sh ${REFORGE_PATH}/webui.sh
@@ -75,7 +73,7 @@ ENV SAGE_SHA256=32c92fe1032238f855f3b1498544b2a9fc25bd55dd4e6c310c2ba39410c5961a
 # # Construct full venv
 RUN curl -L -O ${SAGE_URL}/${SAGE_FILENAME} \
   && echo "$SAGE_SHA256  ./${SAGE_FILENAME}" | sha256sum -c - \
-  && uv python install ${UV_PYTHON} --default \
+  && uv python install $(python3 ${REFORGE_PATH}/get_python_version.py) --default \
   && uv venv ${REFORGE_PATH}/venv --clear --seed --allow-existing \
   && . ${REFORGE_PATH}/venv/bin/activate \
   && uv pip install insightface \
@@ -114,7 +112,6 @@ USER ubuntu
 WORKDIR /home/ubuntu
 ENV REFORGE_PATH=/home/ubuntu/stable-diffusion-webui
 ENV UV_CACHE_DIR=${REFORGE_PATH}/venv/uvcache
-ENV UV_PYTHON=3.11
 ENV PATH="$PATH:${REFORGE_PATH}:/home/ubuntu/.local/bin"
 
 WORKDIR ${REFORGE_PATH}

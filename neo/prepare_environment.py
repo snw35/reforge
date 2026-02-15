@@ -8,10 +8,12 @@ args = launch_utils.args
 
 prepare_environment = launch_utils.prepare_environment
 
+
 def main():
     # We set this flag to allow buidling on non-GPU runners
     args.skip_torch_cuda_test = True
     prepare_environment()
+
 
 if __name__ == "__main__":
     main()
