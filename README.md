@@ -15,11 +15,10 @@ Currently builds:
 
   * [`neo` branch from Haoming02.](https://github.com/Haoming02/sd-webui-forge-classic/tree/neo)
   * CUDA 13.
-  * Sageattention 2.
-  * Python 3.11 and UV.
+  * Sageattention 2 ([from here](https://github.com/snw35/sageattention-wheel))
+  * UV managed python and venv.
   * Latest Torch and Torchvision.
-  * Volumes and bind-mounts for all config, outputs, and runtime dependencies.
-  * Everything included in the image.
+  * Volumes and bind-mounts for config, plugins, and output.
 
 ### Tags
 
