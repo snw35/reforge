@@ -9,9 +9,11 @@ Priority:
 
 Input:
 - Environment variable: REFORGE_PATH (repo root)
+- Optional CLI argument: -strip (or --strip) to remove period from output
 
 Output:
-- Prints major.minor (e.g. 3.13) to stdout
+- Prints major.minor (e.g. 3.13) to stdout by default
+- With -strip/--strip, prints without period (e.g. 313)
 - Exits non-zero on failure
 """
 
@@ -119,6 +121,15 @@ def _from_launch_utils(root: Path) -> str | None:
 
 
 def main() -> int:
+    strip_output = False
+    for arg in sys.argv[1:]:
+        if arg in ("-strip", "--strip"):
+            strip_output = True
+        else:
+            print(f"ERROR: Unknown argument: {arg}", file=sys.stderr)
+            print("Usage: get_python_version.py [-strip]", file=sys.stderr)
+            return 2
+
     root_env = os.environ.get("REFORGE_PATH", "").strip()
     if not root_env:
         print("ERROR: REFORGE_PATH is not set", file=sys.stderr)
@@ -132,7 +143,7 @@ def main() -> int:
     for detector in (_from_pyproject, _from_python_version_file, _from_launch_utils):
         ver = detector(root)
         if ver:
-            print(ver)
+            print(ver.replace(".", "") if strip_output else ver)
             return 0
 
     print(

@@ -19,10 +19,10 @@ ENV UV_CACHE_DIR=${REFORGE_PATH}/venv/uvcache
 ENV DEBIAN_FRONTEND="noninteractive"
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV UV_VERSION=0.10.0
+ENV UV_VERSION=0.10.3
 ENV UV_URL=https://github.com/astral-sh/uv/releases/download/${UV_VERSION}
 ENV UV_FILENAME=uv-x86_64-unknown-linux-gnu.tar.gz
-ENV UV_SHA256=230e328948c92dd1ebad83949c4d56e83813dfe9c6362a4c519e6a227973f1ae
+ENV UV_SHA256=c60b9956a0e6727f0ddd881c303a706c6408b2047f3a8fa4d1454a826338ccdc
 
 # Install UV
 RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
@@ -33,10 +33,10 @@ RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
   && rm -rf ./uv-x86_64-unknown-linux-gnu ./${UV_FILENAME}
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV REFORGE_VERSION=2.11
+ENV REFORGE_VERSION=2.13
 ENV REFORGE_URL=https://github.com/Haoming02/sd-webui-forge-classic/archive/refs/tags/
 ENV REFORGE_FILENAME=${REFORGE_VERSION}.tar.gz
-ENV REFORGE_SHA256=29bb8acb84c67bacb392723265734c76733b3720c3cd7558c5790530872da8b9
+ENV REFORGE_SHA256=0eb8eebc09d76c1749919e636623939d45c2a273a00ad53430636a03dc9b8dc6
 
 # Install ReForge
 RUN curl -L -O $REFORGE_URL/$REFORGE_FILENAME \
@@ -65,15 +65,19 @@ USER ubuntu
 ENV PATH="$PATH:${REFORGE_PATH}:/home/ubuntu/.local/bin"
 
 # Version variables controlled by https://github.com/snw35/dfupdate
+# Stop sage from automatically updating due to python version being unknown at build time
 ENV SAGE_VERSION=2.2.0
 ENV SAGE_URL=https://github.com/snw35/sageattention-wheel/releases/download/cu12-${SAGE_VERSION}-cu13-${SAGE_VERSION}/
-ENV SAGE_FILENAME=sageattention-${SAGE_VERSION}+cu13-cp311-cp311-linux_x86_64.whl
-ENV SAGE_SHA256=32c92fe1032238f855f3b1498544b2a9fc25bd55dd4e6c310c2ba39410c5961a
-#
+ENV SAGE_SHA256=599bede74bb0be04157b24939f02ea0e741d2e9a4e20abc6ae7c98a00c31f4ce
+ENV SAGE_UPGRADE=false
+
 # # Construct full venv
-RUN curl -L -O ${SAGE_URL}/${SAGE_FILENAME} \
+RUN export PYTHON_VERSION=$(python3 ${REFORGE_PATH}/get_python_version.py) \
+  && export SAGE_CP=$(python3 ${REFORGE_PATH}/get_python_version.py -strip) \
+  && export SAGE_FILENAME=sageattention-${SAGE_VERSION}+cu13-cp${SAGE_CP}-cp${SAGE_CP}-linux_x86_64.whl \
+  && curl -L -O ${SAGE_URL}/${SAGE_FILENAME} \
   && echo "$SAGE_SHA256  ./${SAGE_FILENAME}" | sha256sum -c - \
-  && uv python install $(python3 ${REFORGE_PATH}/get_python_version.py) --default \
+  && uv python install $PYTHON_VERSION --default \
   && uv venv ${REFORGE_PATH}/venv --clear --seed --allow-existing \
   && . ${REFORGE_PATH}/venv/bin/activate \
   && uv pip install insightface \
