@@ -68,7 +68,6 @@ ENV PATH="$PATH:${REFORGE_PATH}:/home/ubuntu/.local/bin"
 # Stop sage from automatically updating due to python version being unknown at build time
 ENV SAGE_VERSION=2.2.0
 ENV SAGE_URL=https://github.com/snw35/sageattention-wheel/releases/download/cu12-${SAGE_VERSION}-cu13-${SAGE_VERSION}/
-ENV SAGE_SHA256=599bede74bb0be04157b24939f02ea0e741d2e9a4e20abc6ae7c98a00c31f4ce
 
 # # Construct full venv
 RUN export PYTHON_VERSION=$(python3 ${REFORGE_PATH}/get_python_version.py) \
