@@ -1,4 +1,4 @@
-FROM nvidia/cuda:13.1.1-base-ubuntu24.04 AS builder
+FROM nvidia/cuda:13.2.0-base-ubuntu24.04 AS builder
 
 # First build stage constructs /home/ubuntu
 # Installs uv, webui, and builds full venv
@@ -19,10 +19,10 @@ ENV UV_CACHE_DIR=${REFORGE_PATH}/venv/uvcache
 ENV DEBIAN_FRONTEND="noninteractive"
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV UV_VERSION=0.10.10
+ENV UV_VERSION=0.10.12
 ENV UV_URL=https://github.com/astral-sh/uv/releases/download/${UV_VERSION}
 ENV UV_FILENAME=uv-x86_64-unknown-linux-gnu.tar.gz
-ENV UV_SHA256=3e1027f26ce8c7e4c32e2277a7fed2cb410f2f1f9320d3df97653d40e21f415b
+ENV UV_SHA256=ec72570c9d1f33021aa80b176d7baba390de2cfeb1abcbefca346d563bf17484
 
 # Install UV
 RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
@@ -33,10 +33,10 @@ RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
   && rm -rf ./uv-x86_64-unknown-linux-gnu ./${UV_FILENAME}
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV REFORGE_VERSION=2.15
+ENV REFORGE_VERSION=2.16
 ENV REFORGE_URL=https://github.com/Haoming02/sd-webui-forge-classic/archive/refs/tags/
 ENV REFORGE_FILENAME=${REFORGE_VERSION}.tar.gz
-ENV REFORGE_SHA256=f069776fc28e7b32e4004f4cb054fbf502365804b84b2666c1560105226e9dc0
+ENV REFORGE_SHA256=007a3ebdef00ad3887a8f9c74bf4f4d26e2a9ab1ab47d3b745648e33e4995141
 
 # Install ReForge
 RUN curl -L -O $REFORGE_URL/$REFORGE_FILENAME \
@@ -91,7 +91,7 @@ RUN export PYTHON_VERSION=$(python3 ${REFORGE_PATH}/get_python_version.py) \
 ###############################################################################
 
 
-FROM nvidia/cuda:13.1.1-base-ubuntu24.04
+FROM nvidia/cuda:13.2.0-base-ubuntu24.04
 
 # Second stage copies homedir with webui install and pre-built venv
 COPY --from=builder /home/ubuntu /home/ubuntu
