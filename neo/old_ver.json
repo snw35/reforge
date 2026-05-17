@@ -8,10 +8,10 @@
       "version": "13.2.1-base-ubuntu24.04"
     },
     "REFORGE": {
-      "version": "2.23",
-      "gitref": "refs/tags/2.23",
-      "revision": "c33f540d9bcd4cdecd332860b07007f02da3bd09",
-      "url": "https://github.com/Haoming02/sd-webui-forge-classic/releases/tag/2.23"
+      "version": "2.24",
+      "gitref": "refs/tags/2.24",
+      "revision": "6e8086edeaef473eb05b48b55518802fadf5bba1",
+      "url": "https://github.com/Haoming02/sd-webui-forge-classic/releases/tag/2.24"
     },
     "SAGE": {
       "version": "2.2.0",
@@ -20,10 +20,10 @@
       "url": "https://github.com/snw35/sageattention-wheel/releases/tag/2.2.0"
     },
     "UV": {
-      "version": "0.11.12",
-      "gitref": "refs/tags/0.11.12",
-      "revision": "63c5f57d36c03835b9840149c76f20c5bdb982a7",
-      "url": "https://github.com/astral-sh/uv/releases/tag/0.11.12"
+      "version": "0.11.14",
+      "gitref": "refs/tags/0.11.14",
+      "revision": "3fdfdc7d4a63c9f283eb751823b7628b13116684",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.11.14"
     }
   }
 }
