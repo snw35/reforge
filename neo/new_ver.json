@@ -2,16 +2,16 @@
   "version": 2,
   "data": {
     "BASE": {
-      "version": "13.3.0-base-ubuntu26.04"
+      "version": "13.3.1-base-ubuntu26.04"
     },
     "BASE_BUILDER": {
-      "version": "13.3.0-base-ubuntu26.04"
+      "version": "13.3.1-base-ubuntu26.04"
     },
     "REFORGE": {
-      "version": "2.27",
-      "gitref": "refs/tags/2.27",
-      "revision": "9ffc5e575c670033f954f750f1776aef1390e1db",
-      "url": "https://github.com/Haoming02/sd-webui-forge-classic/releases/tag/2.27"
+      "version": "2.28",
+      "gitref": "refs/tags/2.28",
+      "revision": "da4b083dd34aa0aa757c2fbfb80519de58a4eba9",
+      "url": "https://github.com/Haoming02/sd-webui-forge-classic/releases/tag/2.28"
     },
     "SAGE": {
       "version": "2.2.0",
@@ -20,10 +20,10 @@
       "url": "https://github.com/snw35/sageattention-wheel/releases/tag/2.2.0"
     },
     "UV": {
-      "version": "0.11.32",
-      "gitref": "refs/tags/0.11.32",
-      "revision": "3010295ae7ff572de459987ad70db315a62ecd61",
-      "url": "https://github.com/astral-sh/uv/releases/tag/0.11.32"
+      "version": "0.12.1",
+      "gitref": "refs/tags/0.12.1",
+      "revision": "329541a503de8a4d9bb021814f9c0875efe033c8",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.12.1"
     }
   }
 }
