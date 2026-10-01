@@ -104,6 +104,7 @@ RUN apt-get update \
     bc \
     gcc \
     git \
+    libc6-dev \
     libgl1 \
     libglib2.0-0t64 \
     libtcmalloc-minimal4t64 \
