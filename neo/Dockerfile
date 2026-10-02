@@ -100,6 +100,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 RUN apt-get update \
   && apt-get install -y \
     bc \
+    ffmpeg \
     gcc \
     git \
     libc6-dev \
