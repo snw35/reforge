@@ -56,6 +56,7 @@ COPY webui-user.sh ${REFORGE_PATH}/webui-user.sh
 USER root
 RUN chmod +x ${REFORGE_PATH}/entrypoint.sh \
   && chmod +x ${REFORGE_PATH}/webui-user.sh \
+  && chmod +x ${REFORGE_PATH}/webui.sh \
   && chown -R ubuntu:ubuntu /home/ubuntu/
 USER ubuntu
 
