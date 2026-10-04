@@ -20,10 +20,10 @@
       "url": "https://github.com/snw35/sageattention-wheel/releases/tag/2.2.0"
     },
     "UV": {
-      "version": "0.12.22",
-      "gitref": "refs/tags/0.12.22",
-      "revision": "70fe1196a546e49148a73b1c592b2f74c33af80e",
-      "url": "https://github.com/astral-sh/uv/releases/tag/0.12.22"
+      "version": "0.12.23",
+      "gitref": "refs/tags/0.12.23",
+      "revision": "46b84fd0bfec23b72f29e8e2185ba68a65052f48",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.12.23"
     }
   }
 }
