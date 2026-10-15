@@ -50,12 +50,10 @@ RUN curl -L -O $REFORGE_URL/$REFORGE_FILENAME \
 COPY prepare_environment.py ${REFORGE_PATH}/prepare_environment.py
 COPY get_python_version.py ${REFORGE_PATH}/get_python_version.py
 COPY entrypoint.sh ${REFORGE_PATH}/entrypoint.sh
-COPY webui-user.sh ${REFORGE_PATH}/webui-user.sh
 
 # Copy entrypoint and set permissions as root
 USER root
 RUN chmod +x ${REFORGE_PATH}/entrypoint.sh \
-  && chmod +x ${REFORGE_PATH}/webui-user.sh \
   && chmod +x ${REFORGE_PATH}/webui.sh \
   && chown -R ubuntu:ubuntu /home/ubuntu/
 USER ubuntu
