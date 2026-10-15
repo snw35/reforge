@@ -79,7 +79,6 @@ RUN export PYTHON_VERSION=$(python3 ${REFORGE_PATH}/get_python_version.py) \
   && uv pip install openai-clip \
   && uv pip install ./${SAGE_FILENAME} \
   && rm -f ./${SAGE_FILENAME} \
-  && . ${REFORGE_PATH}/webui-user.sh \
   && python ${REFORGE_PATH}/prepare_environment.py \
   && pip cache purge \
   && uv cache clean
