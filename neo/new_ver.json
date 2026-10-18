@@ -2,10 +2,10 @@
   "version": 2,
   "data": {
     "BASE": {
-      "version": "13.4.2-base-ubuntu26.04"
+      "version": "13.4.3-base-ubuntu26.04"
     },
     "BASE_BUILDER": {
-      "version": "13.4.2-base-ubuntu26.04"
+      "version": "13.4.3-base-ubuntu26.04"
     },
     "REFORGE": {
       "version": "2.30",
@@ -20,10 +20,10 @@
       "url": "https://github.com/snw35/sageattention-wheel/releases/tag/2.2.0"
     },
     "UV": {
-      "version": "0.13.0",
-      "gitref": "refs/tags/0.13.0",
-      "revision": "4ecd0eff2a81e3ffdcd7cfee10d08936e4747c17",
-      "url": "https://github.com/astral-sh/uv/releases/tag/0.13.0"
+      "version": "0.13.1",
+      "gitref": "refs/tags/0.13.1",
+      "revision": "62faed3351cfee2121b3c28b937b1f4b93233a93",
+      "url": "https://github.com/astral-sh/uv/releases/tag/0.13.1"
     }
   }
 }

@@ -1,4 +1,4 @@
-FROM nvidia/cuda:13.4.2-base-ubuntu26.04 AS builder
+FROM nvidia/cuda:13.4.3-base-ubuntu26.04 AS builder
 
 # First build stage constructs /home/ubuntu
 # Installs uv, webui, and builds full venv
@@ -19,10 +19,10 @@ ENV UV_CACHE_DIR=${REFORGE_PATH}/venv/uvcache
 ENV DEBIAN_FRONTEND="noninteractive"
 
 # Version variables controlled by https://github.com/snw35/dfupdate
-ENV UV_VERSION=0.13.0
+ENV UV_VERSION=0.13.1
 ENV UV_URL=https://github.com/astral-sh/uv/releases/download/${UV_VERSION}
 ENV UV_FILENAME=uv-x86_64-unknown-linux-gnu.tar.gz
-ENV UV_SHA256=1468ebd5a5541121837c5a2817b9972ba6090fa6caa3d142620850a47fb75154
+ENV UV_SHA256=eadd9d27c134ab5ac1ffd4473b97a741407f3ea238288f03121fc4deddf90220
 
 # Install UV
 RUN curl -L -O ${UV_URL}/${UV_FILENAME} \
@@ -87,7 +87,7 @@ RUN export PYTHON_VERSION=$(python3 ${REFORGE_PATH}/get_python_version.py) \
 ###############################################################################
 
 
-FROM nvidia/cuda:13.4.2-base-ubuntu26.04
+FROM nvidia/cuda:13.4.3-base-ubuntu26.04
 
 # Second stage copies homedir with webui install and pre-built venv
 COPY --from=builder /home/ubuntu /home/ubuntu
