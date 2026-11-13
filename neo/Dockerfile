@@ -67,18 +67,24 @@ ENV SAGE_VERSION=2.2.0
 ENV SAGE_URL=https://github.com/snw35/sageattention-wheel/releases/download/cu12-${SAGE_VERSION}-cu13-${SAGE_VERSION}/
 
 # # Construct full venv
-RUN export PYTHON_VERSION=$(python3 ${REFORGE_PATH}/get_python_version.py) \
-  && export SAGE_CP=$(python3 ${REFORGE_PATH}/get_python_version.py -strip) \
-  && export SAGE_FILENAME=sageattention-${SAGE_VERSION}+cu13-cp${SAGE_CP}-cp${SAGE_CP}-linux_x86_64.whl \
-  && curl -L -O ${SAGE_URL}/${SAGE_FILENAME} \
-  && uv python install $PYTHON_VERSION --default \
+# PYTHON_VERSION drives both the uv install and the sageattention wheel tag, so a
+# failed detection must abort the build. A plain assignment (`VAR=$(cmd)`, unlike
+# `export VAR=$(cmd)`) keeps the script's exit status, so the && chain stops here
+# instead of falling through to a wheel name that cannot exist.
+RUN PYTHON_VERSION="$(python3 ${REFORGE_PATH}/get_python_version.py)" \
+  && SAGE_CP="$(python3 ${REFORGE_PATH}/get_python_version.py -strip)" \
+  && test -n "${PYTHON_VERSION}" && test -n "${SAGE_CP}" \
+  && SAGE_FILENAME=sageattention-${SAGE_VERSION}+cu13-cp${SAGE_CP}-cp${SAGE_CP}-linux_x86_64.whl \
+  && echo "Building venv with Python ${PYTHON_VERSION} (sageattention tag cp${SAGE_CP})" \
+  && curl -fsSL -O "${SAGE_URL}${SAGE_FILENAME}" \
+  && uv python install "${PYTHON_VERSION}" --default \
   && uv venv ${REFORGE_PATH}/venv --clear --seed --allow-existing \
   && . ${REFORGE_PATH}/venv/bin/activate \
   && uv pip install insightface \
   && uv pip install ninja \
   && uv pip install openai-clip \
-  && uv pip install ./${SAGE_FILENAME} \
-  && rm -f ./${SAGE_FILENAME} \
+  && uv pip install "./${SAGE_FILENAME}" \
+  && rm -f "./${SAGE_FILENAME}" \
   && python ${REFORGE_PATH}/prepare_environment.py \
   && pip cache purge \
   && uv cache clean

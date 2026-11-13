@@ -6,6 +6,7 @@ Priority:
 1) pyproject.toml -> [project].requires-python (if present)
 2) .python-version (if present)
 3) modules/launch_utils.py -> check_python_version() AST parse
+4) modules/launch_utils.py -> "tested with X.Y.Z Python" message (fallback)
 
 Input:
 - Environment variable: REFORGE_PATH (repo root)
@@ -72,6 +73,45 @@ def _from_python_version_file(root: Path) -> str | None:
     return _first_major_minor(raw)
 
 
+def _requirement_from_compare(node: ast.Compare) -> tuple[int | None, int | None]:
+    """Translate one ``minor``/``major`` comparison into version requirements.
+
+    The guarded body of ``check_python_version`` is the failure branch, so a
+    comparison like ``if minor < 13:`` means "3.13 or newer is required" and the
+    requirement is derived from the operator, not from the literal alone.
+    """
+
+    major = None
+    minor = None
+
+    if len(node.ops) != 1 or len(node.comparators) != 1:
+        return major, minor
+
+    left = node.left
+    right = node.comparators[0]
+    if not isinstance(left, ast.Name):
+        return major, minor
+    if not isinstance(right, ast.Constant) or not isinstance(right.value, int):
+        return major, minor
+
+    op = node.ops[0]
+    value = right.value
+
+    if left.id == "minor":
+        if isinstance(op, ast.Eq):  # minor == N
+            minor = value
+        elif isinstance(op, ast.GtE):  # minor >= N
+            minor = value
+        elif isinstance(op, ast.Lt):  # minor < N  (e.g. forge >= 2.31)
+            minor = value
+        elif isinstance(op, (ast.LtE, ast.Gt)):  # minor <= N-1 / minor > N
+            minor = value + 1
+    elif left.id == "major" and isinstance(op, ast.Eq):
+        major = value
+
+    return major, minor
+
+
 def _from_launch_utils(root: Path) -> str | None:
     p = root / "modules" / "launch_utils.py"
     if not p.is_file():
@@ -93,31 +133,36 @@ def _from_launch_utils(root: Path) -> str | None:
         return None
 
     major = None
-    minor = None
+    minors: list[int] = []
 
     for n in ast.walk(fn):
-        # Pattern used in this repo: if not (major == 3 and minor == 13):
-        if (
-            isinstance(n, ast.Compare)
-            and len(n.ops) == 1
-            and isinstance(n.ops[0], ast.Eq)
-        ):
-            if (
-                isinstance(n.left, ast.Name)
-                and len(n.comparators) == 1
-                and isinstance(n.comparators[0], ast.Constant)
-            ):
-                val = n.comparators[0].value
-                if isinstance(val, int):
-                    if n.left.id == "major":
-                        major = val
-                    elif n.left.id == "minor":
-                        minor = val
+        if not isinstance(n, ast.Compare):
+            continue
+        req_major, req_minor = _requirement_from_compare(n)
+        if req_major is not None:
+            major = req_major
+        if req_minor is not None:
+            minors.append(req_minor)
 
-    if isinstance(major, int) and isinstance(minor, int):
-        return f"{major}.{minor}"
+    if not minors:
+        return None
 
-    return None
+    # The check is python3-only; only the minor is load-bearing.
+    return f"{major if major is not None else 3}.{max(minors)}"
+
+
+def _from_launch_utils_text(root: Path) -> str | None:
+    p = root / "modules" / "launch_utils.py"
+    if not p.is_file():
+        return None
+
+    m = re.search(
+        r"tested with (\d+)\.(\d+)", p.read_text(encoding="utf-8", errors="replace")
+    )
+    if not m:
+        return None
+
+    return f"{m.group(1)}.{m.group(2)}"
 
 
 def main() -> int:
@@ -140,7 +185,12 @@ def main() -> int:
         print(f"ERROR: REFORGE_PATH is not a directory: {root}", file=sys.stderr)
         return 2
 
-    for detector in (_from_pyproject, _from_python_version_file, _from_launch_utils):
+    for detector in (
+        _from_pyproject,
+        _from_python_version_file,
+        _from_launch_utils,
+        _from_launch_utils_text,
+    ):
         ver = detector(root)
         if ver:
             print(ver.replace(".", "") if strip_output else ver)
